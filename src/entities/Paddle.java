@@ -25,8 +25,12 @@ public class Paddle {
 		this.size = size;
 	}
 	
-	public void move() {
-		
+	public void moveUp() {
+		y -= spd;
+	}
+	
+	public void moveDown() {
+		y += spd;
 	}
 	
 	public void draw(PApplet p) {

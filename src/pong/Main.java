@@ -15,15 +15,23 @@ public class Main extends PApplet {
 	Paddle p2;
 	Ball ball;
 	
+	// For controls, is p1/p2 going up/down
+	private boolean isp1up;
+	private boolean isp1down;
+	private boolean isp2up;
+	private boolean isp2down;
+	
 	/* Run once for every frame */
 	public void draw () {
 		clear();
 		
-		//Player one move and draw
-		p1.move();
+		// Player controls
+		if(isp1up) p1.moveUp();
+		if(isp1down) p1.moveDown();
+		if(isp2up) p2.moveUp();
+		if(isp2down) p2.moveDown();
+		// Draw both player paddles
 		p1.draw(this);
-		//Player two move and draw
-		p2.move();
 		p2.draw(this);
 		
 		//Ball move and draw
@@ -33,11 +41,37 @@ public class Main extends PApplet {
 	
 	/* Checking for keyboard input from user */
 	public void keyPressed() {
-		
+		if (key == 'w' || key == 'W') {
+			isp1up = true;
+		}
+		if (key == 's' || key == 'S') {
+			isp1down = true;
+		}
+		if (key == CODED) {
+			if (keyCode == UP) {
+				isp2up = true;
+			}
+			if (keyCode == DOWN) {
+				isp2down = true;
+			}
+		}
 	}
 	
 	public void keyReleased() {
-		
+		if (key == 'w' || key == 'W') {
+			isp1up = false;
+		}
+		if (key == 's' || key == 'S') {
+			isp1down = false;
+		}
+		if (key == CODED) {
+			if (keyCode == UP) {
+				isp2up = false;
+			}
+			if (keyCode == DOWN) {
+				isp2down = false;
+			}
+		}
 	}
 	
 	/* Run once after drawing stuff is available */
@@ -54,6 +88,11 @@ public class Main extends PApplet {
 		// Setup ball
 		ball = new Ball(SCREEN_W/2,SCREEN_H/2);
 		ball.setup(this);
+		
+		isp1up = false;
+		isp1down = false;
+		isp2up = false;
+		isp2down = false;
 	}
 	
 	/* Run once at very start */
