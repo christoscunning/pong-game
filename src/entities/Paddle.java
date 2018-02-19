@@ -10,39 +10,32 @@ import pong.Main;
 
 public class Paddle {
 	
+	// constant stuff
 	public static final double SPD = 5;
+	public static final double STARTING_SPEED = 5;
+	public static final double STARTING_SIZE = 10;
+	public static final double WHRATIO = 6; // height = width * WHRATIO
 	
 	private double x,y;
-	private double width, height; // Size: = how wide paddle is, height is twice this
-	private double x_move;
+	private double width;
+	private double height;
 	private GRect p;
 	
 	/** Constructor for Paddle Object
-	 *  this constructor calls the super Constructor GRectangle with all of the following parameters.
+	 *  this constructor calls the Constructor GRect with all of the following parameters.
+	 *  x,y are the center of the paddle
 	 * 
 	 * @param x starting x position of the paddle
 	 * @param y starting y position of the paddle
 	 * @param w starting width of the paddle
 	 * @param h starting height of the paddle
 	 */
-	public Paddle (double w, double h, double x, double y) {
-		width = w;
-		height = h;
+	public Paddle (double x, double y) {
+		width = STARTING_SIZE;
+		height = STARTING_SIZE * WHRATIO;
 		this.x = x;
 		this.y = y;
-		p = new GRect(x, y, w, h);
-	}
-	
-	/** Constructor for Paddle Object
-	 *  this constructor calls the super Constructor GRectangle with all of the following parameters. If x,y are not specified, paddle starts at 0,0
-	 * 
-	 * @param x starting x is 0
-	 * @param y starting y is 0
-	 * @param w starting width of the paddle
-	 * @param h starting height of the paddle
-	 */
-	public Paddle (double w, double h) {
-		this(w,h,0,0);
+		p = new GRect(width/2, height/2, width, height);
 	}
 	
 	public void draw(GraphicsProgram g) {
@@ -52,6 +45,6 @@ public class Paddle {
 	// instead of move method , add keyListener methods to move paddle
 	
 	public void init (GraphicsProgram g) {
-		// inst this just constructor
+		p.setFilled(true);
 	}
 }
