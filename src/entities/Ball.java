@@ -24,7 +24,7 @@ public class Ball {
 	public Ball (double x, double y) {
 		this.x = x-RAD;
 		this.y = y-RAD;
-		this.dir = Main.getRandNumBetween(0, PI);
+		this.dir = Main.getRandNumBetween(0, 2*PI);
 		b = new GOval(x,y, RAD*2, RAD*2);
 	}
 	

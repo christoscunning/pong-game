@@ -3,7 +3,10 @@ package pong;
 import entities.*;
 import acm.graphics.GObject;
 import acm.program.GraphicsProgram;
+import acm.util.RandomGenerator;
+
 import java.awt.event.*;
+import java.util.Random;
 
 public class Main extends GraphicsProgram {
 	
@@ -14,6 +17,8 @@ public class Main extends GraphicsProgram {
 	
 	// Game stuff
 	private boolean gameRunning;
+	private final double seed = 1; // for testing purposes
+	private static RandomGenerator rand = RandomGenerator.getInstance();
 	
 	private Paddle p1; //= new Paddle(50,50);
 	private Paddle p2;
@@ -23,19 +28,20 @@ public class Main extends GraphicsProgram {
 		// set size of screen
 		setSize(SCREEN_W,SCREEN_H);
 		
+		// Main Stuff
+		gameRunning = true;
+		
 		// add Listeners
 		addMouseListeners();
 		addKeyListeners();
 		
 		// Initialize entities
-		p1 = new Paddle(50 , SCREEN_H/2-(Paddle.STARTING_SIZE*Paddle.WHRATIO)/2); // 50 = how far from edge they start
+		p1 = new Paddle(25 , SCREEN_H/2-(Paddle.STARTING_SIZE*Paddle.WHRATIO)/2); // 25 = how far from edge they start
 		p1.init(this);
-		p2 = new Paddle(SCREEN_W-50, SCREEN_H/2-(Paddle.STARTING_SIZE*Paddle.WHRATIO)/2);
+		p2 = new Paddle(SCREEN_W-25, SCREEN_H/2-(Paddle.STARTING_SIZE*Paddle.WHRATIO)/2);
 		p2.init(this);
 		ball = new Ball(SCREEN_W/2,SCREEN_H/2); //SCREEN_W/2,SCREEN_H/2
 		ball.init(this);
-		
-		gameRunning = true;
 	}
 	
 	public void run () {
@@ -48,19 +54,30 @@ public class Main extends GraphicsProgram {
 			//ball.move();
 			ball.draw(this);
 		}
+		
+		println("program terminated");
+	}
+	
+	/* Listeners */
+	public void keyPressed (KeyEvent e) {
+		p1.keyListener(e);
+		p2.keyListener(e);
+		if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			// Terminate Program
+			gameRunning = false;
+		}
 	}
 	
 	
 	
-	
-	
-	/** Method to get random number between 0 and n (inclusive). To get position of vertices of randomly generated asteroid.
+	/** Method to get random number between nzero and n (inclusive).
 	 * 
+	 * @param nzero lower limit of random range
 	 * @param n upper limit of random range
 	 * @return returns a random int between 0 and n.
 	 */
 	public static double getRandNumBetween (double nzero, double n) {
-		double ranr = nzero + ( (Math.random() * n ) + 1);
+		double ranr = rand.nextDouble(nzero, n);
 		return ranr;
 		
 	}

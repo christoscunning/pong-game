@@ -1,6 +1,7 @@
 package entities;
 
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 
 import acm.graphics.GObject;
 import acm.graphics.GRect;
@@ -43,6 +44,11 @@ public class Paddle {
 	}
 	
 	// instead of move method , add keyListener methods to move paddle
+	public void keyListener (KeyEvent e) {
+		
+	}
+	
+	
 	
 	public void init (GraphicsProgram g) {
 		p.setFilled(true);
