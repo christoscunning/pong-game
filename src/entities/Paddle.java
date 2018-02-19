@@ -39,16 +39,16 @@ public class Paddle {
 		height = STARTING_SIZE * WHRATIO;
 		this.x = x;
 		this.y = y;
-		p = new GRect(width/2, height/2, width, height);
+		p = new GRect(x, y, width, height);
 		movingUp = false;
 		movingDown = false;
 	}
 	
 	public void draw(GraphicsProgram g) {
-		g.add(p,x,y);
+		g.add(p,x-(width/2),y-(height/2));
 	}
 	
-	/** Method that moves the paddle based on User Input. Keypresses are registered in main class and flip booleans in Paddle class.
+	/** Method that moves the paddle based on User Input. Key presses are registered in main class and flip booleans in Paddle class.
 	 *  when movingUp/movingDown == true, paddle will move up or down by SPD.
 	 * 
 	 * @param tDelta time in miliseconds between current frame and last frame.
@@ -57,15 +57,15 @@ public class Paddle {
 		if (movingUp) {
 			y -= SPD; // * tDelta;
 			// check if at top
-			if (y+(height/2) < 0) {
-				y = 0 - height/2;
+			if (y-(height/2) < 0) {
+				y = height/2;
 			}
 		}
 		if (movingDown) {
 			y += SPD ; //* tDelta;
 			// check if at bottom
-			if (y-(height/2) > Main.SCREEN_H) {
-				y = Main.SCREEN_H + height/2;
+			if (y+(height/2) > Main.SCREEN_H) {
+				y = Main.SCREEN_H - height/2;
 			}
 		}
 	}
