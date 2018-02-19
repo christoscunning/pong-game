@@ -19,6 +19,9 @@ public class Main extends GraphicsProgram {
 	private boolean gameRunning;
 	private final double seed = 1; // for testing purposes
 	private static RandomGenerator rand = RandomGenerator.getInstance();
+	//fps
+	private long tDelta;
+	private long lastTime;
 	
 	private Paddle p1; //= new Paddle(50,50);
 	private Paddle p2;
@@ -38,10 +41,15 @@ public class Main extends GraphicsProgram {
 		// Initialize entities
 		p1 = new Paddle(25 , SCREEN_H/2-(Paddle.STARTING_SIZE*Paddle.WHRATIO)/2); // 25 = how far from edge they start
 		p1.init(this);
+		println(p1.getClass());
 		p2 = new Paddle(SCREEN_W-25, SCREEN_H/2-(Paddle.STARTING_SIZE*Paddle.WHRATIO)/2);
 		p2.init(this);
 		ball = new Ball(SCREEN_W/2,SCREEN_H/2); //SCREEN_W/2,SCREEN_H/2
 		ball.init(this);
+		
+		// starting timing
+		lastTime = System.currentTimeMillis();
+		println("Initialized\nlastTime: " + lastTime);
 	}
 	
 	public void run () {
@@ -49,10 +57,18 @@ public class Main extends GraphicsProgram {
 		pause(PAUSE);
 		
 		while(gameRunning) {
+			tDelta = System.currentTimeMillis() - lastTime;
+			
+			p1.move(tDelta);
 			p1.draw(this);
+			p2.move(tDelta);
 			p2.draw(this);
 			//ball.move();
 			ball.draw(this);
+			
+			println(tDelta);
+			lastTime = System.currentTimeMillis();
+			pause(PAUSE);
 		}
 		
 		println("program terminated");
@@ -60,14 +76,28 @@ public class Main extends GraphicsProgram {
 	
 	/* Listeners */
 	public void keyPressed (KeyEvent e) {
-		p1.keyListener(e);
-		p2.keyListener(e);
+		switch (e.getKeyCode()) {
+			case KeyEvent.VK_W: p1.setMovingUp(true); break;
+			case KeyEvent.VK_S: p1.setMovingDown(true); break;
+			case KeyEvent.VK_UP: p2.setMovingUp(true); break;
+			case KeyEvent.VK_DOWN: p2.setMovingDown(true); break;	
+		}
+		
 		if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 			// Terminate Program
 			gameRunning = false;
 		}
 	}
 	
+	public void keyReleased (KeyEvent e) {
+		switch (e.getKeyCode()) {
+			case KeyEvent.VK_W: p1.setMovingUp(false); break;
+			case KeyEvent.VK_S: p1.setMovingDown(false); break;
+			case KeyEvent.VK_UP: p2.setMovingUp(false); break;
+			case KeyEvent.VK_DOWN: p2.setMovingDown(false); break;	
+	}
+	
+	}
 	
 	
 	/** Method to get random number between nzero and n (inclusive).

@@ -22,6 +22,9 @@ public class Paddle {
 	private double height;
 	private GRect p;
 	
+	private boolean movingUp;
+	private boolean movingDown;
+	
 	/** Constructor for Paddle Object
 	 *  this constructor calls the Constructor GRect with all of the following parameters.
 	 *  x,y are the center of the paddle
@@ -37,18 +40,43 @@ public class Paddle {
 		this.x = x;
 		this.y = y;
 		p = new GRect(width/2, height/2, width, height);
+		movingUp = false;
+		movingDown = false;
 	}
 	
 	public void draw(GraphicsProgram g) {
 		g.add(p,x,y);
 	}
 	
-	// instead of move method , add keyListener methods to move paddle
-	public void keyListener (KeyEvent e) {
-		
+	/** Method that moves the paddle based on User Input. Keypresses are registered in main class and flip booleans in Paddle class.
+	 *  when movingUp/movingDown == true, paddle will move up or down by SPD.
+	 * 
+	 * @param tDelta time in miliseconds between current frame and last frame.
+	 */
+	public void move(long tDelta) {
+		if (movingUp) {
+			y -= SPD; // * tDelta;
+			// check if at top
+			if (y+(height/2) < 0) {
+				y = 0 - height/2;
+			}
+		}
+		if (movingDown) {
+			y += SPD ; //* tDelta;
+			// check if at bottom
+			if (y-(height/2) > Main.SCREEN_H) {
+				y = Main.SCREEN_H + height/2;
+			}
+		}
 	}
 	
+	public void setMovingUp (boolean flag) {
+		movingUp = flag;
+	}
 	
+	public void setMovingDown (boolean flag) {
+		movingDown = flag;
+	}
 	
 	public void init (GraphicsProgram g) {
 		p.setFilled(true);
