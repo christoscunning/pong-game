@@ -11,8 +11,8 @@ import java.util.Random;
 public class Main extends GraphicsProgram {
 	
 	// window stuff
-	public static final int SCREEN_W = 600;
-	public static final int SCREEN_H = 400;
+	public static final int SCREEN_W = 900;
+	public static final int SCREEN_H = 600;
 	private static final int PAUSE = 10; // or whatever interval you like
 	
 	// Game stuff
@@ -63,7 +63,7 @@ public class Main extends GraphicsProgram {
 			p1.draw(this);
 			p2.move(tDelta);
 			p2.draw(this);
-			//ball.move();
+			ball.move();
 			ball.draw(this);
 			
 			println(tDelta);
@@ -82,7 +82,10 @@ public class Main extends GraphicsProgram {
 			case KeyEvent.VK_UP: p2.setMovingUp(true); break;
 			case KeyEvent.VK_DOWN: p2.setMovingDown(true); break;	
 		}
-		
+		if(e.getKeyCode() == KeyEvent.VK_R) {
+			// Reset
+			ball.reset();
+		}
 		if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 			// Terminate Program
 			gameRunning = false;
@@ -109,6 +112,5 @@ public class Main extends GraphicsProgram {
 	public static double getRandNumBetween (double nzero, double n) {
 		double ranr = rand.nextDouble(nzero, n);
 		return ranr;
-		
 	}
 }

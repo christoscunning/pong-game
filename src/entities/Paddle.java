@@ -53,7 +53,7 @@ public class Paddle {
 	 * 
 	 * @param tDelta time in miliseconds between current frame and last frame.
 	 */
-	public void move(long tDelta) {
+	public void move (long tDelta) {
 		if (movingUp) {
 			y -= SPD; // * tDelta;
 			// check if at top
