@@ -5,6 +5,8 @@ import processing.core.PShape;
 
 public class Paddle {
 	
+	private static final float whRatio = 6; //width to height ratio for paddle
+	
 	private float x,y;
 	private float spd;
 	private float size; // Size: = how wide paddle is, height is six this
@@ -46,10 +48,26 @@ public class Paddle {
 		//vertices (rectangle)
 		pd.vertex(0, 0);
 		pd.vertex(size, 0);
-		pd.vertex(size, size*6);
-		pd.vertex(0, size*6);
+		pd.vertex(size, size*whRatio);
+		pd.vertex(0, size*whRatio);
 		pd.vertex(0, 0);
 		pd.endShape();
+	}
+	
+	public float getX () {
+		return x;
+	}
+	
+	public float getY () {
+		return y;
+	}
+	
+	public float getHeight () {
+		return size*whRatio;
+	}
+	
+	public float getWidth () {
+		return size;
 	}
 	
 }

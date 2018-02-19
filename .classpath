@@ -2,7 +2,15 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/chris/OneDrive/Documents/School Work/ECSE 202/Java/acm.jar"/>
-	<classpathentry kind="lib" path="C:/Users/chris/OneDrive/Documents/processing-3.3.6-windows64/processing-3.3.6/core/library/core.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chris/OneDrive/Documents/School Work/ECSE 202/Java/acm.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="https://cs.stanford.edu/people/eroberts/jtf/javadoc/student/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/chris/OneDrive/Documents/processing-3.3.6-windows64/processing-3.3.6/core/library/core.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="https://processing.github.io/processing-javadocs/core/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

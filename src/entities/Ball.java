@@ -12,6 +12,7 @@ public class Ball {
 	float x,y;
 	float dir; // in radians
 	private PShape b;
+	Main m = new Main();
 	
 	/** Constructor the Ball Object
 	 *  Calls the super constructor for GOval with the following parameters slight altered for a circle.
@@ -33,7 +34,26 @@ public class Ball {
 		y += SPD * PApplet.sin(dir);
 		
 		// check if hitting top or bottom of screen and bounce
-		
+		if(y-RAD<0) {
+			//bounce top
+			y=0+RAD;
+			bounce();
+		}
+		if(y+RAD > Main.SCREEN_H) {
+			//bounce bottom
+			y=Main.SCREEN_H-RAD;
+			bounce();
+		}
+		// if hits behind paddles reset to middle
+		if(x < 0) {
+			//score of left (p1)
+			resetBall();
+		}
+		if(x > Main.SCREEN_W) {
+			//score on right (p2)
+			resetBall();
+		}
+			
 	}
 	
 	public void draw(PApplet p) {
@@ -41,18 +61,42 @@ public class Ball {
 	}
 	
 	public void setup(PApplet p) {
-		b = p.createShape(PApplet.ELLIPSE,0, 0, RAD*2, RAD*2);
+		b = p.createShape(PApplet.ELLIPSE,RAD, RAD, RAD*2, RAD*2);
 		b.setStroke(255);
 		b.setFill(255);
 	}
 	
+	public void resetBall (/* int which player scored on */) {
+		// TODO score counter later
+		// TODO add slight pause and countdown before game starts again
+		x = Main.SCREEN_W/2;
+		y = Main.SCREEN_H/2;
+		dir = getRanStartingDirection();
+	}
+	
+	public void bounce () {
+		dir = -dir;//(float) (Math.PI - dir);
+	}
+	
+	public float getX () {
+		return x;
+	}
+	
+	public float getY () {
+		return y;
+	}
+	
+	//This is not very random for some reason
+	// Changed to static and now angles are too sharp ?? 
 	private float getRanStartingDirection () {
-		float angle;
-		int way = (int)Main.getRandNumBetween(0, 2);
+		float angle = 0;
+		int way = (int)m.getRandNumBetween(1, 3);
 		if(way == 1) {
-			angle = Main.getRandNumBetween((float) (Math.PI - (Math.PI/3)), (float) (Math.PI + (Math.PI/3)));
+			angle = m.getRandNumBetween((float) (Math.PI - (Math.PI/6)), (float) (Math.PI + (Math.PI/6)));
+		} else if(way == 2) {
+			angle = m.getRandNumBetween((float)(-Math.PI/6),(float)(Math.PI/6));
 		} else {
-			angle = Main.getRandNumBetween((float)(-Math.PI/3),(float)(Math.PI/3));
+			System.out.println("error in getRanStartingDirection");
 		}
 		return angle;
 	}

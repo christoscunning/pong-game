@@ -3,6 +3,7 @@ package pong;
 
 import entities.*;
 import processing.core.PApplet;
+import java.util.Random;
 
 public class Main extends PApplet {
 	public static final int SCREEN_W = 800;
@@ -14,6 +15,8 @@ public class Main extends PApplet {
 	Paddle p1;
 	Paddle p2;
 	Ball ball;
+	
+	private Random rand = new Random();
 	
 	// For controls, is p1/p2 going up/down
 	private boolean isp1up;
@@ -39,6 +42,10 @@ public class Main extends PApplet {
 		ball.draw(this);
 	}
 	
+	public void checkCollisions () {
+		
+	}
+	
 	/* Checking for keyboard input from user */
 	public void keyPressed() {
 		if (key == 'w' || key == 'W') {
@@ -54,6 +61,9 @@ public class Main extends PApplet {
 			if (keyCode == DOWN) {
 				isp2down = true;
 			}
+		}
+		if (key == 'r' || key == 'R') {
+			reset();
 		}
 	}
 	
@@ -79,6 +89,12 @@ public class Main extends PApplet {
 		// set background color to black
 		background(0);
 		
+		/* Test
+		for(int i = 0; i<50; i++ ) {
+			System.out.println((int)getRandNumBetween(1, 3));
+		}
+		*/
+		
 		// Setup player 1
 		p1 = new Paddle(30,SCREEN_H/2,STARTING_SPEED,STARTING_SIZE);
 		p1.setup(this);
@@ -100,14 +116,18 @@ public class Main extends PApplet {
 		size(SCREEN_W,SCREEN_H);
 	}
 	
+	private void reset () {
+		ball.resetBall();
+	}
+	
 	/** Method to get random number between 0 and n (inclusive). To get position of vertices of randomly generated asteroid.
 	 * 
 	 * @param nzero lower limit of random range
 	 * @param n upper limit of random range
 	 * @return returns a random int between nzero and n.
 	 */
-	public static float getRandNumBetween (float nzero, float n) {
-		float ranr = nzero + ( ((float)Math.random() * n ) + 1);
+	public float getRandNumBetween (float nzero, float n) {
+		float ranr = nzero + (rand.nextFloat()*(n-1));
 		return ranr;
 	}
 	
