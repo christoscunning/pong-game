@@ -3,6 +3,7 @@ package pong;
 import entities.*;
 import acm.graphics.GObject;
 import acm.program.GraphicsProgram;
+import java.awt.event.*;
 
 public class Main extends GraphicsProgram {
 	
@@ -15,41 +16,26 @@ public class Main extends GraphicsProgram {
 	public static final float STARTING_SPEED = 5;
 	public static final float STARTING_SIZE = 10;
 	
-	private boolean gameRunning = true;
-	
-	Paddle p1 = new Paddle(50,50);
+	Paddle p1; //= new Paddle(50,50);
 	Paddle p2;
 	Ball ball;
+	
+	public void init () {
+		setSize(SCREEN_W,SCREEN_H);
+		addMouseListeners();
+		addKeyListeners();
+	}
 	
 	public void run () {
 		/*
 		this.resize(SCREEN_W,SCREEN_H);
 		pause(PAUSE);
 		*/
-		while(true) {
-			p1.move();
-			p1.draw(this);
-			
-			println("runnin");
-			int input = readInt();
-			if(input == 1) {
-				gameRunning = false;
-				break;
-			}
-		}
-	}
-	
-	public void keyPressed () {
-		
-		if(getKeyCode() == 27) {
-			
-		}
 		
 	}
 	
-	public void init () {
-		setSize(SCREEN_W,SCREEN_H);
-	}
+	
+	
 	
 	
 	/** Method to get random number between 0 and n (inclusive). To get position of vertices of randomly generated asteroid.

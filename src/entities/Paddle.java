@@ -8,13 +8,14 @@ import acm.graphics.GRectangle;
 import acm.program.GraphicsProgram;
 import pong.Main;
 
-public class Paddle extends GRect {
+public class Paddle {
 	
 	public static final double SPD = 5;
 	
 	private double x,y;
 	private double width, height; // Size: = how wide paddle is, height is twice this
-	private double dir; // in radians
+	private double x_move;
+	private GRect p;
 	
 	/** Constructor for Paddle Object
 	 *  this constructor calls the super Constructor GRectangle with all of the following parameters.
@@ -25,12 +26,11 @@ public class Paddle extends GRect {
 	 * @param h starting height of the paddle
 	 */
 	public Paddle (double w, double h, double x, double y) {
-		super(w,h);
 		width = w;
 		height = h;
 		this.x = x;
 		this.y = y;
-		dir = Main.getRandNumBetween(0, Math.PI*2);
+		p = new GRect(x, y, w, h);
 	}
 	
 	/** Constructor for Paddle Object
@@ -42,28 +42,16 @@ public class Paddle extends GRect {
 	 * @param h starting height of the paddle
 	 */
 	public Paddle (double w, double h) {
-		super(w,h);
-		width = w;
-		height = h;
-		this.x = 0;
-		this.y = 0;
+		this(w,h,0,0);
 	}
 	
 	public void draw(GraphicsProgram g) {
-		g.add(this,x,y);
+		g.add(p,x,y);
 	}
 	
-	public void move() {
-		x += SPD * Math.cos(dir);
-		y += SPD * Math.sin(dir);
-	}
+	// instead of move method , add keyListener methods to move paddle
 	
 	public void init (GraphicsProgram g) {
-		
+		// inst this just constructor
 	}
-	
-	public void setup() {
-		
-	}
-	
 }
