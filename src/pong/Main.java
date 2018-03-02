@@ -27,6 +27,8 @@ public class Main extends GraphicsProgram {
 	private Paddle p2;
 	private Ball ball;
 	
+	private ScoreKeeper sk;
+	
 	public void init () {
 		lastTime = System.currentTimeMillis();
 		// set size of screen
@@ -47,6 +49,8 @@ public class Main extends GraphicsProgram {
 		ball = new Ball(SCREEN_W/2,SCREEN_H/2); //SCREEN_W/2,SCREEN_H/2
 		ball.init(this);
 		
+		sk = new ScoreKeeper();
+		
 		// starting timing
 		
 		println("Game Initialized in " + (System.currentTimeMillis() - lastTime) + "ms\nlastTime: " + lastTime);
@@ -64,7 +68,7 @@ public class Main extends GraphicsProgram {
 			p1.draw(this);
 			p2.move(tDelta);
 			p2.draw(this);
-			ball.move();
+			ball.move(sk);
 			ball.draw(this);
 			
 			// check for collisions

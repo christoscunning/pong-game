@@ -4,6 +4,7 @@ import acm.graphics.GObject;
 import acm.graphics.GOval;
 import acm.program.GraphicsProgram;
 import pong.Main;
+import pong.ScoreKeeper;
 
 public class Ball {
 	
@@ -33,7 +34,7 @@ public class Ball {
 		g.add(b,x-RAD,y-RAD);
 	}
 	
-	public void move() {
+	public void move(ScoreKeeper sk) {
 		x += SPD * Math.cos(dir);
 		y += SPD * Math.sin(dir);
 		// check if hitting top
@@ -48,10 +49,12 @@ public class Ball {
 		}
 		// check if past left edge; point for p2
 		if (x<0) {
+			sk.p2scored();
 			reset();
 		}
 		// check if past right edge; point for p1
 		if (x>Main.SCREEN_W) {
+			sk.p1scored();
 			reset();
 		}
 	}
