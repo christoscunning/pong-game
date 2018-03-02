@@ -17,7 +17,7 @@ public class Main extends GraphicsProgram {
 	
 	// Game stuff
 	private boolean gameRunning;
-	private final double seed = 1; // for testing purposes
+	private static final double seed = 1; // for testing purposes
 	private static RandomGenerator rand = RandomGenerator.getInstance();
 	//fps
 	private long tDelta;
@@ -28,6 +28,7 @@ public class Main extends GraphicsProgram {
 	private Ball ball;
 	
 	public void init () {
+		lastTime = System.currentTimeMillis();
 		// set size of screen
 		setSize(SCREEN_W,SCREEN_H);
 		
@@ -39,17 +40,17 @@ public class Main extends GraphicsProgram {
 		addKeyListeners();
 		
 		// Initialize entities
-		p1 = new Paddle(25 , SCREEN_H/2-(Paddle.STARTING_SIZE*Paddle.WHRATIO)/2); // 25 = how far from edge they start
+		p1 = new Paddle(25 , SCREEN_H/2-(Paddle.STARTING_SIZE*Paddle.WHRATIO)/2,1); // 25 = how far from edge they start
 		p1.init(this);
-		println(p1.getClass());
-		p2 = new Paddle(SCREEN_W-25, SCREEN_H/2-(Paddle.STARTING_SIZE*Paddle.WHRATIO)/2);
+		p2 = new Paddle(SCREEN_W-25, SCREEN_H/2-(Paddle.STARTING_SIZE*Paddle.WHRATIO)/2,2);
 		p2.init(this);
 		ball = new Ball(SCREEN_W/2,SCREEN_H/2); //SCREEN_W/2,SCREEN_H/2
 		ball.init(this);
 		
 		// starting timing
+		
+		println("Game Initialized in " + (System.currentTimeMillis() - lastTime) + "ms\nlastTime: " + lastTime);
 		lastTime = System.currentTimeMillis();
-		println("Initialized\nlastTime: " + lastTime);
 	}
 	
 	public void run () {
@@ -66,12 +67,24 @@ public class Main extends GraphicsProgram {
 			ball.move();
 			ball.draw(this);
 			
-			println(tDelta);
+			// check for collisions
+			if (RigidBody.isColliding(p1.getGObject(), ball.getGObject())) {
+				// ball hit left paddle
+				ball.bounce(p1);
+			}
+			if (RigidBody.isColliding(p2.getGObject(), ball.getGObject())) {
+				// ball hit right paddle
+				ball.bounce(p2);
+			}
+			
+			//println(tDelta);
 			lastTime = System.currentTimeMillis();
 			pause(PAUSE);
 		}
 		
+
 		println("program terminated");
+		System.exit(0);
 	}
 	
 	/* Listeners */
@@ -98,7 +111,7 @@ public class Main extends GraphicsProgram {
 			case KeyEvent.VK_S: p1.setMovingDown(false); break;
 			case KeyEvent.VK_UP: p2.setMovingUp(false); break;
 			case KeyEvent.VK_DOWN: p2.setMovingDown(false); break;	
-	}
+		}
 	
 	}
 	

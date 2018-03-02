@@ -1,5 +1,6 @@
 package entities;
 
+import acm.graphics.GObject;
 import acm.graphics.GOval;
 import acm.program.GraphicsProgram;
 import pong.Main;
@@ -37,12 +38,12 @@ public class Ball {
 		y += SPD * Math.sin(dir);
 		// check if hitting top
 		if (y-RAD < 0) {
-			dir *= -1;
+			bounce(null);
 			y = RAD;
 		}
 		// check if hitting bottom
 		if (y+RAD > Main.SCREEN_H) {
-			dir *= -1;
+			bounce(null);
 			y = Main.SCREEN_H-RAD;
 		}
 		// check if past left edge; point for p2
@@ -55,6 +56,20 @@ public class Ball {
 		}
 	}
 	
+	public void bounce (Paddle p) {
+		if(p != null) {
+			dir = 3.0*PI - dir;
+			if(p.getPlayerNumber()==1) {
+				x = x + p.getWidth();
+			}
+			if(p.getPlayerNumber()==2) {
+				x = x - p.getWidth();
+			}
+		} else {
+			dir *= -1;
+		}
+	}
+	
 	public void reset () {
 		x = Main.SCREEN_W/2; 
 		y = Main.SCREEN_H/2;
@@ -64,13 +79,13 @@ public class Ball {
 	private double randomBallDir () {
 		double rdir = 0;
 		int side = (int) Main.getRandNumBetween(0, 2);
-		// dir between +- 45 degreese (pi/4) on each side
+		// dir between +- 45 degrees (pi/4) on each side
 		if(side == 0) {
 			// dir between +45, -45
-			rdir = Main.getRandNumBetween(-PI/4, PI/4);
+			rdir = Main.getRandNumBetween(-PI/4.0, PI/4.0);
 		} else if (side == 1) {
 			// dir between 180 +- 45
-			rdir = Main.getRandNumBetween((3/4)*PI, (5/4)*PI);
+			rdir = Main.getRandNumBetween((0.75)*PI, (1.25)*PI);
 		} else {
 			// error with choosing random side value
 			System.out.println("error choosing side for random ball direction");
@@ -83,4 +98,7 @@ public class Ball {
 		b.setFilled(true);
 	}
 	
+	public GObject getGObject () {
+		return b;
+	}
 }

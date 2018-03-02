@@ -20,6 +20,7 @@ public class Paddle {
 	private double x,y;
 	private double width;
 	private double height;
+	private int playernum;
 	private GRect p;
 	
 	private boolean movingUp;
@@ -34,7 +35,7 @@ public class Paddle {
 	 * @param w starting width of the paddle
 	 * @param h starting height of the paddle
 	 */
-	public Paddle (double x, double y) {
+	public Paddle (double x, double y, int playernum) {
 		width = STARTING_SIZE;
 		height = STARTING_SIZE * WHRATIO;
 		this.x = x;
@@ -42,6 +43,7 @@ public class Paddle {
 		p = new GRect(x, y, width, height);
 		movingUp = false;
 		movingDown = false;
+		this.playernum = playernum;
 	}
 	
 	public void draw(GraphicsProgram g) {
@@ -80,5 +82,17 @@ public class Paddle {
 	
 	public void init (GraphicsProgram g) {
 		p.setFilled(true);
+	}
+	
+	public GObject getGObject () {
+		return p;
+	}
+	
+	public double getWidth() {
+		return width;
+	}
+	
+	public int getPlayerNumber() {
+		return playernum;
 	}
 }
