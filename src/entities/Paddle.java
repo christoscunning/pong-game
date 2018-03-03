@@ -1,11 +1,7 @@
 package entities;
 
-import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-
 import acm.graphics.GObject;
 import acm.graphics.GRect;
-import acm.graphics.GRectangle;
 import acm.program.GraphicsProgram;
 import pong.Main;
 

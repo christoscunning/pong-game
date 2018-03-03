@@ -23,13 +23,11 @@ public class ScoreKeeper {
 		System.out.println("Player 2 scored!");
 	}
 	
-	public void p1scored (int pause) {
-		p1score++;
-		//Main.pause(pause);
+	public int getP1Score () {
+		return p1score;
 	}
 	
-	public void p2scored (int pause) {
-		p2score++;
-		// Main.pause(pause);
+	public int getP2Score () {
+		return p2score;
 	}
 }

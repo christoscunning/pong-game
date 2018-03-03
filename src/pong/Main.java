@@ -6,6 +6,7 @@ import acm.util.RandomGenerator;
 
 import java.awt.event.*;
 
+@SuppressWarnings("serial")
 public class Main extends GraphicsProgram {
 	
 	// window stuff
@@ -15,7 +16,7 @@ public class Main extends GraphicsProgram {
 	
 	// Game stuff
 	private boolean gameRunning;
-	private static final double seed = 1; // for testing purposes
+	//private static final double seed = 1; // for testing purposes
 	private static RandomGenerator rand = RandomGenerator.getInstance();
 	//fps
 	private long tDelta;
