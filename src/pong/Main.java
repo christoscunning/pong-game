@@ -1,12 +1,10 @@
 package pong;
 
 import entities.*;
-import acm.graphics.GObject;
 import acm.program.GraphicsProgram;
 import acm.util.RandomGenerator;
 
 import java.awt.event.*;
-import java.util.Random;
 
 public class Main extends GraphicsProgram {
 	
