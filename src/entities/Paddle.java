@@ -8,10 +8,10 @@ import pong.Main;
 public class Paddle {
 	
 	// constant stuff
-	public static final double SPD = 5;
-	public static final double STARTING_SPEED = 5;
-	public static final double STARTING_SIZE = 10;
-	public static final double WHRATIO = 6; // height = width * WHRATIO
+	public static final double SPD = 5f;
+	public static final double STARTING_SPEED = 5f;
+	public static final double STARTING_SIZE = 10f;
+	public static final double WHRATIO = 6f; // height = width * WHRATIO
 	
 	private double x,y;
 	private double width;

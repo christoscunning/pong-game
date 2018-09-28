@@ -9,8 +9,8 @@ import pong.ScoreKeeper;
 public class Ball {
 	
 	private static final double PI = Math.PI;
-	private static final double SPD = 5;
-	private static final double RAD = 10;
+	private static final double SPD = 5f;
+	private static final double RAD = 10f;
 	
 	private double dir; // 0 is straight left, positive is down from right x axis
 	private double x,y;

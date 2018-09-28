@@ -86,7 +86,7 @@ public class Main extends GraphicsProgram {
 		}
 		
 
-		println("program terminated");
+		println("Program terminated...");
 		System.exit(0);
 	}
 	
